@@ -1,3 +1,18 @@
-//
-   Created by andreas on 10.11.16.
+extends layout
+
+block body
+  .row
+    .small-12.column
+      h1 Apply for leave
+  .row
+    .small-12.medium-6.end.column
+      form(method="post" action="/send-leave-request")
+        label Leave type
+          select#leaveType(name="leaveType")
+            option(value="vacation") Vacation
+            option(value="special leave") Special Leave
+  .row
+    .small-12.medium-6.column
+      label Start date
+        
 

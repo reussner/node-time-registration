@@ -42,7 +42,9 @@ module.exports.routes = {
   'post /signup': 'UserController.signup',
   '/logout': 'UserController.logout',
 
-  '/add-entry': 'TimeRegistrationController.addEntry'
+  '/add-entry': 'TimeRegistrationController.addEntry',
+
+  '/apply-for-leave': 'LeaveController.page'
 
   /***************************************************************************
   *                                                                          *
