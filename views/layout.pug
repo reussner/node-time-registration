@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="x-ua-compatible" content="ie=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+
+    title= title + ' | Infosim Intranet'
+
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.css")
+    // STYLES
+    link(rel="stylesheet" href="/styles/importer.css")
+    // STYLES END
+
+  body
+    .title-bar(data-responsive-toggle="main-menu" data-hide-for="medium")
+      button.menu-icon(type="button" data-toggle)
+        .title-bar-title
+
+    .top-bar#main-menu
+      .top-bar-left
+        ul.menu
+          li
+            a(href="/") Dashboard
+          li
+            a(href="/time-registration") Time Registration
+
+      .top-bar-right
+        ul.menu
+          button.button(type="button") Login
+
+    block body
+
+    // SCRIPTS
+    script(src="/js/dependencies/sails.io.js")
+    script(src="https://code.jquery.com/jquery-2.2.4.min.js")
+    script(src="/js/dependencies/what-input.min.js")
+    script(src="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.js")
+    script(src="/js/dependencies/motion-ui.min.js")
+    script(src="/js/app.js")
+    block scripts
+    // SCRIPTS END

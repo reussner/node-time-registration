@@ -1,0 +1,131 @@
+extends layout
+
+block body
+  .row
+    .small-12.column
+      h1 Time Registration
+    .small-12.column
+        .callout
+          h2 How does it work?
+          p ...
+
+  .row
+    .small-12.column
+      form(method="post" action="/add-entry")
+        fieldset.fieldset
+          legend
+            h2 Insert new entry
+          .row
+            .small-12.medium-6.column
+              .row
+                .small-3.column
+                  label.text-right.middle(for="project") Project:
+                .small-9.column
+                  input#project(type="text" name="project")
+              .row
+                .small-3.column
+                  label.text-right.middle(for="task") Task:
+                .small-9.column
+                  input#task(type="text" name="task")
+              .row
+                .small-3.column
+                  label.text-right.middle(for="subproject") Subproject:
+                .small-9.column
+                  input#subproject(type="text" name="subproject")
+              .row
+                .small-3.column
+                  label.text-right.middle(for="comment") Comment:
+                .small-9.column
+                  input#comment(type="text" name="comment")
+              .row
+                .small-3.column
+                  label.text-right.middle(for="time") Time:
+                .small-3.column
+                  input#time(type="number" name="time" value=0)
+                .small-2.column
+                  label.text-right.middle(for="unit") Unit:
+                .small-4.column
+                  select#unit(name="unit")
+                    option(value="hours") Hours
+                    option(value="minutes") Minutes
+                    option(value="days") Days
+            .small-12.medium-6.column
+              .row
+                .small-12.column
+                  fieldset.fieldset
+                    legend Options
+                    input#flat(type="checkbox" name="flat")
+                    label(for="flat") Flat
+
+                    input#ticket(type="checkbox" name="ticket")
+                    label(for="ticket") Ticket
+
+                    input#review(type="checkbox" name="review")
+                    label(for="review") Review
+
+                    input#chargeable(name="chargeable" type="checkbox")
+                    label(for="chargeable") Chargeable
+
+                    #chargeableTime-container
+                      label Chargeable Time
+                        input#chargeableTime(name="chargeableTime" type="number" value=0)
+              .row
+                .small-12.column
+                  button.button(type="submit") Insert entry
+
+  .row
+    .small-12.column
+      .table-scroll
+        table
+          thead
+            tr
+              th Project
+              th Task
+              th Sub Project
+              th Comment
+              th Time
+              th Unit
+              th Chargeable
+              th Chargeable time
+              th Flat
+              th Ticket
+              th Review
+              th Modify
+              th Delete
+          tbody
+            each entry in timeRegEntries
+              tr
+                td
+                  =entry.project
+                td
+                  =entry.task
+                td
+                  =entry.subproject
+                td
+                  =entry.comment
+                td
+                  =entry.time
+                td
+                  =entry.unit
+                td
+                  if entry.chargeable
+                    |X
+                td
+                  =entry.chargeableTime
+                td
+                  if entry.flat
+                    |X
+                td
+                  if entry.ticket
+                    |X
+                td
+                  if entry.review
+                    |X
+                td
+                  button.button Modify
+                td
+                  button.button.alert Delete
+
+
+block scripts
+  script(src="/js/time-registry.js")
