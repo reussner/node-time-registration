@@ -5,14 +5,45 @@ block body
     .small-12.column
       h1 Apply for leave
   .row
-    .small-12.medium-6.end.column
-      form(method="post" action="/send-leave-request")
-        label Leave type
-          select#leaveType(name="leaveType")
-            option(value="vacation") Vacation
-            option(value="special leave") Special Leave
-  .row
     .small-12.medium-6.column
-      label Start date
-        
+      form(method="post" action="/send-leave-request")
+        .row
+          .small-12.column
+            label Leave type
+              select#leaveType(name="leaveType")
+                option(value="vacation") Vacation
+                option(value="special leave") Special Leave
+          .small-12.medium-6.column
+            label Start date
+              input(name="startDate" type="date")
+          .small-12.medium-6.column
+            label End date
+              input(name="endDate" type="date")
+          .small-12.column
+            label Comment
+              textarea(name="comment")
+          .small-12.column
+            button.button(type="submit") Send application
+    .small-12.medium-6.column
+      table
+        tbody
+          tr
+            td Total days
+            td 30
+          tr
+            td Remaining days
+            td 10
+    .small-12.medium-6.column
+      h5 Last five taken leaves
+      table
+        thead
+          tr
+            td Leave type
+            td Start
+            td End
+            td Comment
+        tbody
 
+  .row
+    .small-12.column
+      h2 Leave overview
