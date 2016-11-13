@@ -65,7 +65,7 @@ module.exports = function login(inputs) {
 // There is absolutely nothing wrong with this!  It is just as much the "Sails way" :)
 //
 // On the other hand, if we needed to add a new login page somewhere else on the site,
-// we might need to redirect to a different URL if that login failed (e.g. /checkout/login)
+// we might need to redirect to a different URL if that login failed (e.g. /leaveEnd/login)
 // However _everything else is almost exactly the same_. In this case, we might be able to
 // use the `inputs` object in this custom response to make it **just configurable enough**
 // to reuse this code.  If it doesn't work out- no problem, create a custom action.  But

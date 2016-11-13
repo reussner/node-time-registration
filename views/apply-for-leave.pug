@@ -1,5 +1,8 @@
 extends layout
 
+block styles
+  link(rel="stylesheet" href="/styles/foundation-datepicker.min.css")
+
 block body
   .row
     .small-12.column
@@ -13,12 +16,15 @@ block body
               select#leaveType(name="leaveType")
                 option(value="vacation") Vacation
                 option(value="special leave") Special Leave
-          .small-12.medium-6.column
+          .small-12.medium-5.column
             label Start date
-              input(name="startDate" type="date")
-          .small-12.medium-6.column
+              input#start-date(name="startDate" type="text")
+          .small-12.medium-5.column
             label End date
-              input(name="endDate" type="date")
+              input#end-date(name="endDate" type="text")
+          .small-12.medium-2.column
+            label Days
+              input(name="days" type="number" value="0")
           .small-12.column
             label Comment
               textarea(name="comment")
@@ -41,9 +47,20 @@ block body
             td Leave type
             td Start
             td End
-            td Comment
+            td Days
         tbody
+          each leave in lastLeaves
+            tr
+              td=leave.leaveType
+              td=leave.startDate
+              td=leave.endDate
+              td=leave.days
 
   .row
     .small-12.column
       h2 Leave overview
+
+block scripts
+  script(src="/js/datepicker/foundation-datepicker.min.js")
+  script(src="/js/datepicker/locales/foundation-datepicker.de.js")
+  script(src="/js/datepicker/datepicker-config.js")

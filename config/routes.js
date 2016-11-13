@@ -44,7 +44,8 @@ module.exports.routes = {
 
   '/add-entry': 'TimeRegistrationController.addEntry',
 
-  '/apply-for-leave': 'LeaveController.page'
+  '/apply-for-leave': 'LeaveController.page',
+  '/send-leave-request': 'LeaveController.sendLeaveRequests'
 
   /***************************************************************************
   *                                                                          *
