@@ -19,6 +19,11 @@ block body
             .small-12.medium-6.column
               .row
                 .small-3.column
+                  label.text-right.middle(for="timeRegistryEntryDate") Date:
+                .small-9.column
+                  input#timeRegistryEntryDate(type="text" class="span2" name="timeRegistryEntryDate")
+              .row
+                .small-3.column
                   label.text-right.middle(for="project") Project:
                 .small-9.column
                   input#project(type="text" name="project")
@@ -41,7 +46,7 @@ block body
                 .small-3.column
                   label.text-right.middle(for="time") Time:
                 .small-3.column
-                  input#time(type="number" name="time" value=0)
+                  input#time(type="number" name="time" value=0 step="0.25")
                 .small-2.column
                   label.text-right.middle(for="unit") Unit:
                 .small-4.column
@@ -53,22 +58,26 @@ block body
               .row
                 .small-12.column
                   fieldset.fieldset
-                    legend Options
-                    input#flat(type="checkbox" name="flat")
-                    label(for="flat") Flat
+                    .small-12.column
+                      legend Options
+                      input#flat(type="checkbox" name="flat")
+                      label(for="flat") Flat
 
-                    input#ticket(type="checkbox" name="ticket")
-                    label(for="ticket") Ticket
+                      input#ticket(type="checkbox" name="ticket")
+                      label(for="ticket") Ticket
 
-                    input#review(type="checkbox" name="review")
-                    label(for="review") Review
+                      input#review(type="checkbox" name="review")
+                      label(for="review") Review
 
-                    input#chargeable(name="chargeable" type="checkbox")
-                    label(for="chargeable") Chargeable
+                      input#chargeable(name="chargeable" type="checkbox")
+                      label(for="chargeable") Chargeable
 
-                    #chargeableTime-container
+                    .small-12.column#chargeableTime-container
                       label Chargeable Time
-                        input#chargeableTime(name="chargeableTime" type="number" value=0)
+                        input#chargeableTime(name="chargeableTime" type="number" value=0 step="0.25")
+                    .small-12.column
+                      label Share entry with colleagues
+                      textarea#invite-colleagues(name="inviteColleagues")
               .row
                 .small-12.column
                   button.button(type="submit") Insert entry
@@ -90,7 +99,6 @@ block body
               th Flat
               th Ticket
               th Review
-              th Modify
               th Delete
           tbody
             each entry in timeRegEntries
@@ -107,25 +115,25 @@ block body
                   =entry.time
                 td
                   =entry.unit
-                td
+                td.centered
                   if entry.chargeable
                     |X
                 td
                   =entry.chargeableTime
-                td
+                td.centered
                   if entry.flat
                     |X
-                td
+                td.centered
                   if entry.ticket
                     |X
-                td
+                td.centered
                   if entry.review
                     |X
-                td
-                  button.button Modify
                 td
                   button.button.alert Delete
 
 
 block scripts
+  script(src="/js/datepicker/foundation-datepicker.min.js")
+  script(src="/js/datepicker/locales/foundation-datepicker.de.js")
   script(src="/js/time-registry.js")
