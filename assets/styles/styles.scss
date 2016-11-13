@@ -5,3 +5,24 @@
 .centered {
   text-align: center;
 }
+
+ul.events {
+  margin: 0;
+  li.event {
+    margin: 5px 0;
+    padding: 2px;
+    background-color: rgb(255, 70, 17);
+
+    &.holiday {
+      background-color: greenyellow;
+    }
+
+    &.vacation {
+      background-color: #2199e8;
+    }
+
+    &.special-leave {
+      background-color: #ec5840;
+    }
+  }
+}

@@ -2,6 +2,7 @@ extends layout
 
 block styles
   link(rel="stylesheet" href="/styles/foundation-datepicker.min.css")
+  link(rel="stylesheet" href="/styles/foundation.calendar.css")
 
 block body
   .row
@@ -59,6 +60,35 @@ block body
   .row
     .small-12.column
       h2 Leave overview
+    .small-12.column
+      ul.calendar
+        li.title November 2016
+        li.day-header
+          .small-1.day Sun
+          .small-1.day Mon
+          .small-1.day Tue
+          .small-1.day Wed
+          .small-1.day Thu
+          .small-1.day Fri
+          .small-1.day Sat
+
+        each week in calendar
+          li.week
+            each day in week
+              if day == 3
+                .small-1.day
+                  =day
+                  ul.events
+                    li.event.vacation AR: Vacation
+                    li.event.special-leave SU: Special Leave
+                    li.event.holiday CU: Holiday
+              else if day == 4
+                .small-1.day
+                  = day
+                  ul.events
+                    li.event.vacation AR: Vacation
+              else
+                .small-1.day=day
 
 block scripts
   script(src="/js/datepicker/foundation-datepicker.min.js")

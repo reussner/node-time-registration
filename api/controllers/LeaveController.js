@@ -17,7 +17,8 @@ module.exports = {
     }).exec(function (err, lastLeaves) {
       var options = {
         title: 'Apply for leave',
-        lastLeaves: lastLeaves
+        lastLeaves: lastLeaves,
+        calendar: getMonthDates()
       };
       res.render('apply-for-leave', options);
     });
@@ -42,3 +43,18 @@ module.exports = {
   }
 };
 
+function getMonthDates() {
+  var weeks = [0, 7, 14, 21];
+
+  for(var i = 0; i < weeks.length; i++) {
+    var days = [];
+
+    for (var j = 0; j < 7; j++){
+      days.push(weeks[i]+j+1);
+    }
+
+    weeks[i] = days;
+  }
+
+  return weeks;
+}
