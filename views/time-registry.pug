@@ -1,86 +1,85 @@
 extends layout
 
+block styles
+  link(rel="stylesheet" href="/styles/foundation-datepicker.min.css")
+
 block body
   .row
     .small-12.column
       h1 Time Registration
     .small-12.column
-        .callout
-          h2 How does it work?
-          p ...
+      ul.accordion(data-accordion data-allow-all-closed="true")
+        li.accordion-item(data-accordion-item)
+          a.accordion-title(href="#")
+            h6 How does it work?
+          .accordion-content(data-tab-content)
+            p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+            p Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
 
   .row
     .small-12.column
       form(method="post" action="/add-entry")
-        fieldset.fieldset
-          legend
-            h2 Insert new entry
+        .small-12.medium-6.column
           .row
-            .small-12.medium-6.column
-              .row
-                .small-3.column
-                  label.text-right.middle(for="timeRegistryEntryDate") Date:
-                .small-9.column
-                  input#timeRegistryEntryDate(type="text" class="span2" name="timeRegistryEntryDate")
-              .row
-                .small-3.column
-                  label.text-right.middle(for="project") Project:
-                .small-9.column
-                  input#project(type="text" name="project")
-              .row
-                .small-3.column
-                  label.text-right.middle(for="task") Task:
-                .small-9.column
-                  input#task(type="text" name="task")
-              .row
-                .small-3.column
-                  label.text-right.middle(for="subproject") Subproject:
-                .small-9.column
-                  input#subproject(type="text" name="subproject")
-              .row
-                .small-3.column
-                  label.text-right.middle(for="comment") Comment:
-                .small-9.column
-                  input#comment(type="text" name="comment")
-              .row
-                .small-3.column
-                  label.text-right.middle(for="time") Time:
-                .small-3.column
-                  input#time(type="number" name="time" value=0 step="0.25")
-                .small-2.column
-                  label.text-right.middle(for="unit") Unit:
-                .small-4.column
-                  select#unit(name="unit")
-                    option(value="hours") Hours
-                    option(value="minutes") Minutes
-                    option(value="days") Days
-            .small-12.medium-6.column
-              .row
+            .small-12.column
+              label Date:
+                input#timeRegistryEntryDate(type="text" name="timeRegistryEntryDate")
+            .small-12.column
+              label Project:
+                select#project(name="project")
+                  option(value="Internal Development") Internal Development
+                  option(value="Ackermann") Ackermann
+                  option(value="Mavis") Mavis
+            .small-12.column
+              label Task:
+                select#task(name="task")
+                  option(value="Analysis") Analysis
+                  option(value="Design") Design
+                  option(value="Development") Development
+                  option(value="Tests") Tests
+            .small-12.column
+              label Subproject:
+                select#subproject(name="subproject")
+                  option(value="Intranet") Intranet
+            .small-12.column
+              label Comment:
+                input#comment(type="text" name="comment")
+            .small-12.column
+              label Time:
+                input#time(type="number" name="time" value=0 step="0.25")
+            .small-12.column
+              label Unit:
+                select#unit(name="unit")
+                  option(value="hours") Hours
+                  option(value="minutes") Minutes
+                  option(value="days") Days
+        .small-12.medium-6.column
+          .row
+            .small-12.column
+              fieldset.fieldset
                 .small-12.column
-                  fieldset.fieldset
-                    .small-12.column
-                      legend Options
-                      input#flat(type="checkbox" name="flat")
-                      label(for="flat") Flat
+                  legend Options
+                  input#flat(type="checkbox" name="flat")
+                  label(for="flat") Flat
 
-                      input#ticket(type="checkbox" name="ticket")
-                      label(for="ticket") Ticket
+                  input#ticket(type="checkbox" name="ticket")
+                  label(for="ticket") Ticket
 
-                      input#review(type="checkbox" name="review")
-                      label(for="review") Review
+                  input#review(type="checkbox" name="review")
+                  label(for="review") Review
 
-                      input#chargeable(name="chargeable" type="checkbox")
-                      label(for="chargeable") Chargeable
+                  input#chargeable(name="chargeable" type="checkbox")
+                  label(for="chargeable") Chargeable
 
-                    .small-12.column#chargeableTime-container
-                      label Chargeable Time
-                        input#chargeableTime(name="chargeableTime" type="number" value=0 step="0.25")
-                    .small-12.column
-                      label Share entry with colleagues
-                      textarea#invite-colleagues(name="inviteColleagues")
-              .row
+                .small-12.column#chargeableTime-container
+                  label Chargeable Time
+                    input#chargeableTime(name="chargeableTime" type="number" value=0 step="0.25")
                 .small-12.column
-                  button.button(type="submit") Insert entry
+                  label Share entry with colleagues
+                  textarea#invite-colleagues(name="inviteColleagues")
+          .row
+            .small-12.column
+              button.button(type="submit") Insert entry
 
   .row
     .small-12.column
@@ -117,18 +116,18 @@ block body
                   =entry.unit
                 td.centered
                   if entry.chargeable
-                    |X
+                    | X
                 td
                   =entry.chargeableTime
                 td.centered
                   if entry.flat
-                    |X
+                    | X
                 td.centered
                   if entry.ticket
-                    |X
+                    | X
                 td.centered
                   if entry.review
-                    |X
+                    | X
                 td
                   a(href="/delete-entry/" + entry.id)
                     button.button.alert Delete
