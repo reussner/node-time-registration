@@ -4,23 +4,42 @@
  * @description :: Server-side logic for managing Leaves
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+var Q = require('q');
 
 module.exports = {
   page: function (req, res) {
-    Leave.find({
-      where: {
-        owner: 'AR',
-        approved: true
-      },
-      sort: 'endDate DESC',
-      limit: 5
-    }).exec(function (err, lastLeaves) {
+    Q.all([
+        Leave.find({
+          where: {
+            owner: 'AR',
+            approved: true
+          },
+          sort: 'endDate DESC',
+          limit: 5
+        }),
+        Leave.find({
+          where: {
+            approved: true,
+            startDate: {'>=': getCalendarStart(new Date())},
+            endDate: {'<=': getCalendarEnd(new Date())}
+          },
+          sort: 'startDate ASC'
+        })
+      ]
+    ).spread(function (lastLeaves, calendarLeaves) {
+      var calendarJson = getLeaveDateJson(calendarLeaves);
+      var month = getCurrentMonth();
+
       var options = {
         title: 'Apply for leave',
         lastLeaves: lastLeaves,
-        calendar: getCurrentMonth()
+        calendar: month,
+        calendarEvents: calendarJson
       };
+
       res.render('apply-for-leave', options);
+    }).fail(function (err) {
+      console.log(err);
     });
   },
 
@@ -44,14 +63,12 @@ module.exports = {
 };
 
 function getCurrentMonth() {
-  var currentDate = new Date();
-  var monthStart = new Date(currentDate.valueOf()).addDays(-currentDate.getDate());
-  var calendarStart = new Date(monthStart.valueOf()).addDays(-monthStart.getDay());
+  var calendarStart = getCalendarStart(new Date());
   // Show five weeks
-  var monthEnd = new Date(calendarStart.valueOf()).addDays(35);
+  var calendarEnd = getCalendarEnd(new Date());
   var month = [];
   var week = [];
-  while (calendarStart < monthEnd) {
+  while (calendarStart < calendarEnd) {
     var day = {
       number: calendarStart.getDate(),
       date: calendarStart
@@ -65,6 +82,38 @@ function getCurrentMonth() {
   }
 
   return month;
+}
+
+function getCalendarStart(day) {
+  day.setHours(0, 0, 0, 0);
+  var monthStart = new Date(day.valueOf()).addDays(-day.getDate());
+
+  return new Date(monthStart.valueOf()).addDays(-monthStart.getDay());
+}
+
+function getCalendarEnd(day) {
+  day.setHours(0, 0, 0, 0);
+  var calendarStart = getCalendarStart(day);
+  return new Date(calendarStart.valueOf()).addDays(35);
+}
+
+function getLeaveDateJson(leaves) {
+  var jsonLeave = {};
+  for (var i = 0; i < leaves.length; i++) {
+    var start = leaves[i].startDate;
+    var end = leaves[i].endDate;
+    while (start <= end) {
+      if (jsonLeave.hasOwnProperty(start)) {
+        jsonLeave[start].push(leaves[i]);
+      } else {
+        jsonLeave[start] = [leaves[i]]
+      }
+
+      start = start.addDays(1);
+    }
+  }
+
+  return jsonLeave;
 }
 
 Date.prototype.addDays = function (days) {

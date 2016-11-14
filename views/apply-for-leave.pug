@@ -75,19 +75,12 @@ block body
         each week in calendar
           li.week
             each day in week
-              if day.number == 3
+              if calendarEvents.hasOwnProperty(day.date)
                 .small-1.day
                   =day.number
                   ul.events
-                    li.event.vacation AR: Vacation
-                    li.event.special-leave SU: Special Leave
-                    li.event.holiday CU: Holiday
-              else if day.number == 4
-                .small-1.day
-                  = day.number
-                  ul.events
-                    li.event.vacation AR: Vacation
-                    li.event.holiday=day.date
+                    each event in calendarEvents[day.date]
+                      li(class="event " + event.leaveType)=event.owner + ': ' + event.leaveType
               else
                 .small-1.day=day.number
 
