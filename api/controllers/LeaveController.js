@@ -20,8 +20,7 @@ module.exports = {
         Leave.find({
           where: {
             approved: true,
-            startDate: {'>=': getCalendarStart(new Date())},
-            endDate: {'<=': getCalendarEnd(new Date())}
+            startDate: {'>=': getCalendarStart(new Date())}
           },
           sort: 'startDate ASC'
         })
