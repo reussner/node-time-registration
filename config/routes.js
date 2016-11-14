@@ -43,6 +43,7 @@ module.exports.routes = {
   '/logout': 'UserController.logout',
 
   '/add-entry': 'TimeRegistrationController.addEntry',
+  '/delete-entry/:id': 'TimeRegistrationController.deleteEntry',
 
   '/apply-for-leave': 'LeaveController.page',
   '/send-leave-request': 'LeaveController.sendLeaveRequest'

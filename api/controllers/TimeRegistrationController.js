@@ -57,5 +57,15 @@ module.exports = {
     });
 
     res.redirect('back');
+  },
+
+  deleteEntry: function (req, res) {
+    var objectId = req.params.id;
+
+    TimeRegEntry.destroy({id: objectId}).exec(function (err) {
+
+    });
+
+    res.redirect('back');
   }
 };

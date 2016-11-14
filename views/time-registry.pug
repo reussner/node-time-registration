@@ -130,8 +130,8 @@ block body
                   if entry.review
                     |X
                 td
-                  button.button.alert Delete
-
+                  a(href="/delete-entry/" + entry.id)
+                    button.button.alert Delete
 
 block scripts
   script(src="/js/datepicker/foundation-datepicker.min.js")
