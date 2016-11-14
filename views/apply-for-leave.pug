@@ -75,14 +75,33 @@ block body
         each week in calendar
           li.week
             each day in week
+              -var previousMonthClass;
+              -var nextMonthClass;
+              -var todayClass;
+
+              if day.date.getMonth() == currentDate.getMonth() && day.date.getDate() == currentDate.getDate()
+                -todayClass = " today";
+              else
+                -todayClass = "";
+
+              if day.date.getMonth() == previousMonth + 2
+                -nextMonthClass = " next-month"
+              else
+                -nextMonthClass = "";
+
+              if day.date.getMonth() == previousMonth
+                -previousMonthClass = " previous-month";
+              else
+                -previousMonthClass = "";
               if calendarEvents.hasOwnProperty(day.date)
-                .small-1.day
+                div(class="small-1 day" + previousMonthClass + nextMonthClass + todayClass)
                   =day.number
                   ul.events
                     each event in calendarEvents[day.date]
                       li(class="event " + event.leaveType)=event.owner + ': ' + event.leaveType
               else
-                .small-1.day=day.number
+                div(class="small-1 day" + previousMonthClass + nextMonthClass + todayClass)
+                  =day.number
 
 block scripts
   script(src="/js/datepicker/foundation-datepicker.min.js")

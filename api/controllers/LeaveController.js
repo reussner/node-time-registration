@@ -29,12 +29,17 @@ module.exports = {
     ).spread(function (lastLeaves, calendarLeaves) {
       var calendarJson = getLeaveDateJson(calendarLeaves);
       var month = getCurrentMonth();
+      var currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+      var previousMonth = currentDate.getMonth() - 1;
 
       var options = {
         title: 'Apply for leave',
         lastLeaves: lastLeaves,
         calendar: month,
-        calendarEvents: calendarJson
+        calendarEvents: calendarJson,
+        currentDate: currentDate,
+        previousMonth: previousMonth
       };
 
       res.render('apply-for-leave', options);
