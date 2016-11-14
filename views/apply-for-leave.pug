@@ -75,20 +75,21 @@ block body
         each week in calendar
           li.week
             each day in week
-              if day == 3
+              if day.number == 3
                 .small-1.day
-                  =day
+                  =day.number
                   ul.events
                     li.event.vacation AR: Vacation
                     li.event.special-leave SU: Special Leave
                     li.event.holiday CU: Holiday
-              else if day == 4
+              else if day.number == 4
                 .small-1.day
-                  = day
+                  = day.number
                   ul.events
                     li.event.vacation AR: Vacation
+                    li.event.holiday=day.date
               else
-                .small-1.day=day
+                .small-1.day=day.number
 
 block scripts
   script(src="/js/datepicker/foundation-datepicker.min.js")

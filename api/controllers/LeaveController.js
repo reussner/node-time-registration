@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-	page: function (req, res) {
+  page: function (req, res) {
     Leave.find({
       where: {
         owner: 'AR',
@@ -18,7 +18,7 @@ module.exports = {
       var options = {
         title: 'Apply for leave',
         lastLeaves: lastLeaves,
-        calendar: getMonthDates()
+        calendar: getCurrentMonth()
       };
       res.render('apply-for-leave', options);
     });
@@ -43,18 +43,32 @@ module.exports = {
   }
 };
 
-function getMonthDates() {
-  var weeks = [0, 7, 14, 21];
-
-  for(var i = 0; i < weeks.length; i++) {
-    var days = [];
-
-    for (var j = 0; j < 7; j++){
-      days.push(weeks[i]+j+1);
+function getCurrentMonth() {
+  var currentDate = new Date();
+  var monthStart = new Date(currentDate.valueOf()).addDays(-currentDate.getDate());
+  var calendarStart = new Date(monthStart.valueOf()).addDays(-monthStart.getDay());
+  // Show five weeks
+  var monthEnd = new Date(calendarStart.valueOf()).addDays(35);
+  var month = [];
+  var week = [];
+  while (calendarStart < monthEnd) {
+    var day = {
+      number: calendarStart.getDate(),
+      date: calendarStart
+    };
+    week.push(day);
+    if (calendarStart.getDay() == 6) {
+      month.push(week);
+      week = [];
     }
-
-    weeks[i] = days;
+    calendarStart = calendarStart.addDays(1);
   }
 
-  return weeks;
+  return month;
 }
+
+Date.prototype.addDays = function (days) {
+  var dat = new Date(this.valueOf());
+  dat.setDate(dat.getDate() + days);
+  return dat;
+};
