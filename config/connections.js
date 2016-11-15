@@ -103,7 +103,7 @@ module.exports.connections = {
     host: 'zed',
     database: 'NAV2016_Dev',
     options: {
-      encrypt: true
+      encrypt: false
     }
   }
 };
