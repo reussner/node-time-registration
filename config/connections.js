@@ -99,11 +99,8 @@ module.exports.connections = {
   infosimNavSql: {
     adapter: 'sails-sqlserver',
     user: 'super',
-    password: 'stable4you!',
-    host: 'zed',
-    database: 'NAV2016_Dev',
-    options: {
-      encrypt: false
-    }
+    password: 'stable4u!',
+    host: 'ZED',
+    database: 'NAV2016_Dev'
   }
 };
