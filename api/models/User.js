@@ -7,6 +7,8 @@
 
 module.exports = {
 
+  connection: 'localMongoDb',
+
   attributes: {
     email: {
       type: 'email',
