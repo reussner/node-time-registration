@@ -70,7 +70,7 @@ module.exports.connections = {
     host: 'localhost', // defaults to `localhost` if omitted
     port: 27017, // defaults to 27017 if omitted
     database: 'infosim-intranet' // or omit if not relevant
-  }
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -96,4 +96,14 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
 
+  infosimNavSql: {
+    adapter: 'sails-sqlserver',
+    user: 'super',
+    password: 'stable4you!',
+    host: 'zed',
+    database: 'NAV2016_Dev',
+    options: {
+      encrypt: true
+    }
+  }
 };

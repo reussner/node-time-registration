@@ -18,10 +18,8 @@ module.exports = {
    ***************************************************************************/
 
    models: {
-    connection: 'localMongoDb',
-    migrate: 'safe',
-    autoPK: true
-
+    connection: 'infosimNavSql',
+    migrate: 'safe'
    }
 
 };
