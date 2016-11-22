@@ -7,6 +7,14 @@
  * @description :: Log the requesting user in using a passport strategy
  * @help        :: See http://links.sailsjs.org/docs/responses
  */
+var ActiveDirectory =  require('activedirectory');
+var config = {
+  url: 'ldap://root.infosim.net',
+  baseDN: 'dc=infosim, dc=net',
+  username: '',
+  password: ''
+};
+var ad = new ActiveDirectory(config);
 
 module.exports = function login(inputs) {
   inputs = inputs || {};
@@ -15,14 +23,28 @@ module.exports = function login(inputs) {
   var req = this.req;
   var res = this.res;
 
-  // Look up the user
-  User.attemptLogin({
-    email: inputs.email,
-    password: inputs.password
-  }, function (err, user) {
-    if (err) return res.negotiate(err);
-    if (!user) {
+  var user = inputs.email;
+  var password = inputs.password;
 
+  ad.authenticate(user, password, function (err, auth) {
+    if (err) {
+      console.log('ERROR: ' + JSON.stringify(err));
+      return res.negotiate(err);
+    }
+
+    if (auth) {
+      req.session.me = user;
+      // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
+      // send a 200 response letting the user agent know the login was successful.
+      // (also do this if no `successRedirect` was provided)
+      if (req.wantsJSON || !inputs.successRedirect) {
+        return res.ok();
+      }
+
+      // Otherwise if this is an HTML-wanting browser, redirect to /.
+      return res.redirect(inputs.successRedirect);
+    }
+    else {
       // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
       // send a 200 response letting the user agent know the login was successful.
       // (also do this if no `invalidRedirect` was provided)
@@ -32,22 +54,7 @@ module.exports = function login(inputs) {
       // Otherwise if this is an HTML-wanting browser, redirect to /login.
       return res.redirect(inputs.invalidRedirect);
     }
-
-    // "Remember" the user in the session
-    // Subsequent requests from this user agent will have `req.session.me` set.
-    req.session.me = user.id;
-
-    // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
-    // send a 200 response letting the user agent know the login was successful.
-    // (also do this if no `successRedirect` was provided)
-    if (req.wantsJSON || !inputs.successRedirect) {
-      return res.ok();
-    }
-
-    // Otherwise if this is an HTML-wanting browser, redirect to /.
-    return res.redirect(inputs.successRedirect);
   });
-
 };
 
 

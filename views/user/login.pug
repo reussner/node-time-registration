@@ -1,0 +1,14 @@
+extends ../layout
+
+block body
+  .row
+    .small-12.column
+      form(method="post" action="/login")
+        .small-12.column
+          label(for="email") Email:
+            input#email(type="email" name="email" required="required")
+        .small-12.column
+          label(for="password") Password:
+            input#password(type="password" name="password" required="required")
+        .small-12.column
+          button(type="submit") Login
