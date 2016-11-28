@@ -4,6 +4,7 @@
  * @description :: Server-side logic for managing Dashboards
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+var Q = require('q');
 
 module.exports = {
   get: function (req, res) {
@@ -11,17 +12,30 @@ module.exports = {
     var today = new Date();
     today.setHours(0, 0, 0, 0);
     var previousMonth = today.getMonth() - 1;
-    var calendarJson = getLeaveDateJson([]);
 
-    var options = {
-      title: 'Dashboard',
-      calendar: month,
-      currentDate: today,
-      previousMonth: previousMonth,
-      calendarEvents: calendarJson
-    };
+    Q.all([
+      Leave.find({
+        where: {
+          approved: true,
+          startDate: {
+            '>=': getCalendarStart(new Date())
+          }
+        },
+        sort: 'startDate ASC'
+      })
+    ]).spread(function(leaves) {
 
-    res.render('homepage', options);
+      var calendarJson = getLeaveDateJson(leaves);
+      var options = {
+        title: 'Dashboard',
+        calendar: month,
+        currentDate: today,
+        previousMonth: previousMonth,
+        calendarEvents: calendarJson
+      };
+
+      res.render('homepage', options);
+    });
   }
 };
 

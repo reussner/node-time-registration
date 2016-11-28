@@ -48,7 +48,7 @@ block body
                 if calendarEvents.hasOwnProperty(day.date)
                   ul.events
                     each event in calendarEvents[day.date]
-                      li(class="event " + event.leaveType)=event.owner + ': ' + event.leaveType
+                      li(class="event " + event.department + " " + event.leaveType)=event.owner
     .small-3.column
       .row
         .small-12.column
@@ -82,22 +82,5 @@ block body
             input#management(type="checkbox" checked)
             label(for="management") Management
 
-        fieldset.small-12.column.fieldset
-          legend Types
-          .small-12.column
-            input#vacation(type="checkbox" checked)
-            label(for="vacation") Vacation
-          .small-12.column
-            input#special-leave(type="checkbox" checked)
-            label(for="special-leave") Special Leave
-          .small-12.column
-            input#holiday(type="checkbox" checked)
-            label(for="holiday") Holiday
-          .small-12.column
-            input#leave(type="checkbox" checked)
-            label(for="leave") Illness
-
-
-
-
-
+block scripts
+  script(src="/js/forthcoming-events-filter.js")

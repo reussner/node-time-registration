@@ -30,6 +30,9 @@ module.exports = {
     },
     days: {
       type: 'integer'
+    },
+    department: {
+      type: 'string'
     }
   }
 };
