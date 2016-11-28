@@ -1,6 +1,103 @@
 extends layout
 
+block styles
+  link(rel="stylesheet" href="/styles/foundation.calendar.css")
+
 block body
   .row
     .small-12.column
       h1 Dashboard
+
+  .row
+    .small-9.column
+      ul.calendar
+        li.title Forthcoming events
+        li.day-header
+          .small-1.day Sun
+          .small-1.day Mon
+          .small-1.day Tue
+          .small-1.day Wed
+          .small-1.day Thu
+          .small-1.day Fri
+          .small-1.day Sat
+
+        each week in calendar
+          li.week
+            each day in week
+              -var previousMonthClass;
+              -var nextMonthClass;
+              -var todayClass;
+
+              if day.date.getMonth() == currentDate.getMonth() && day.date.getDate() == currentDate.getDate()
+                -todayClass = " today";
+              else
+                -todayClass = "";
+
+              if day.date.getMonth() == previousMonth + 2
+                -nextMonthClass = " next-month"
+              else
+                -nextMonthClass = "";
+
+              if day.date.getMonth() == previousMonth
+                -previousMonthClass = " previous-month";
+              else
+                -previousMonthClass = "";
+
+              div(class="small-1 day" + previousMonthClass + nextMonthClass + todayClass)
+                =day.number
+                if calendarEvents.hasOwnProperty(day.date)
+                  ul.events
+                    each event in calendarEvents[day.date]
+                      li(class="event " + event.leaveType)=event.owner + ': ' + event.leaveType
+    .small-3.column
+      .row
+        .small-12.column
+          h5 Legend
+        .small-12.column.legend
+          .small-3.column
+            .vacation.color-block
+          .small-9.column
+            p Vacation
+
+          .small-3.column
+            .special-leave.color-block
+          .small-9.column
+            p Special Leave
+
+          .small-3.column
+            .holiday.color-block
+          .small-9.column
+            p Holiday
+
+      .row
+        fieldset.small-12.column.fieldset
+          legend Departments
+          .small-12.column
+            input#navision(type="checkbox" checked)
+            label(for="navision") Navision
+          .small-12.column
+            input#stable-net-dev(type="checkbox" checked)
+            label(for="stable-net-dev") Stable Net Development
+          .small-12.column
+            input#management(type="checkbox" checked)
+            label(for="management") Management
+
+        fieldset.small-12.column.fieldset
+          legend Types
+          .small-12.column
+            input#vacation(type="checkbox" checked)
+            label(for="vacation") Vacation
+          .small-12.column
+            input#special-leave(type="checkbox" checked)
+            label(for="special-leave") Special Leave
+          .small-12.column
+            input#holiday(type="checkbox" checked)
+            label(for="holiday") Holiday
+          .small-12.column
+            input#leave(type="checkbox" checked)
+            label(for="leave") Illness
+
+
+
+
+
