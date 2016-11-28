@@ -4,19 +4,20 @@
  * @description :: Server-side logic for managing Timeregistrations
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+var Q = require('q');
 
 module.exports = {
   get: function (req, res) {
-    var entries = [];
-    TimeRegEntry.find({
-      owner: 'AR'
-    }).exec(function (err, entriesForOwner) {
-      entries = entriesForOwner;
-
+    Q.all([
+      TimeRegEntry.find({
+        owner: 'AR'
+      })
+    ]).spread(function (entries) {
       var options = {
         title: 'Time Registration',
         timeRegEntries: entries
       };
+
       res.render('time-registry', options);
     });
   },
@@ -36,6 +37,7 @@ module.exports = {
     if (req.body.chargeable)
       chargeable = true;
 
+    req.body.chargeableTime.setHours(0, 0, 0, 0);
 
     var values = {
       owner: "AR",
@@ -49,7 +51,8 @@ module.exports = {
       ticket: ticket,
       review: review,
       chargeable: chargeable,
-      chargeableTime: req.body.chargeableTime
+      chargeableTime: req.body.chargeableTime,
+      entryDate: req.body.timeRegistryEntryDate
     };
 
     TimeRegEntry.create(values).exec(function (err, records) {

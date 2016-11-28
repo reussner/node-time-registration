@@ -45,6 +45,9 @@ module.exports = {
     },
     chargeableTime: {
       type: 'float'
+    },
+    entryDate: {
+      type: 'datetime'
     }
   }
 
