@@ -25,15 +25,19 @@ block body
           tr
             td Comment
             td=leave.comment
-    .small-12.column
-      label Comment
-        textarea#leaveComment(name="leaveComment")
-    .small-6.centered.column
-      a(href="/accept-leave-request/" + leave.id)
-        button.button.success Accept
-    .small-6.centered.column
-      a(href="/reject-leave-request/" + leave.id)
-        button.button.alert Reject
+    if leave.rejected == false
+      .small-12.column
+        label Comment
+          textarea#leaveComment(name="leaveComment")
+      .small-6.centered.column
+        a(href="/accept-leave-request/" + leave.id)
+          button.button.success Accept
+      .small-6.centered.column
+        a(href="/reject-leave-request/" + leave.id)
+          button.button.alert Reject
+    else
+      .small-12.column
+        p This request has already been processed or has been deleted by the creator.
 
   .row
     .small-12.column
