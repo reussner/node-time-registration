@@ -53,8 +53,8 @@ block body
           each leave in lastLeaves
             tr
               td=leave.leaveType
-              td=leave.startDate
-              td=leave.endDate
+              td=leave.startDate.toLocaleString('de-DE')
+              td=leave.endDate.toLocaleString('de-DE')
               td=leave.days
 
   .row
