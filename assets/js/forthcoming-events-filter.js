@@ -14,8 +14,8 @@ $(document).ready(function () {
     $('.management').toggle(this.checked);
   });
 
-  $('#vacation').click(function () {
-    $('.vacation').toggle(this.checked);
+  $('#not-assigned').click(function () {
+    $('.not-assigned').toggle(this.checked);
   });
 
   $('#special-leave').click(function () {

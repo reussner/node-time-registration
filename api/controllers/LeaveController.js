@@ -56,7 +56,8 @@ module.exports = {
       endDate: req.body.endDate,
       comment: req.body.comment,
       days: req.body.days,
-      rejected: false
+      rejected: false,
+      department: "not-assigned"
     };
 
     Leave.create(leave).exec(function (err, records) {
