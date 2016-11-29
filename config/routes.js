@@ -52,7 +52,9 @@ module.exports.routes = {
   '/reject-leave-request/:id': 'LeaveController.rejectLeaveRequest',
 
   '/my-leaves': 'MyLeavesController.viewLeaves',
-  '/cancel-leave-request/:id': 'MyLeavesController.cancelLeaveRequest'
+  '/cancel-leave-request/:id': 'MyLeavesController.cancelLeaveRequest',
+
+  '/pending-requests': 'PendingLeavesController.showPendingLeaves'
 
   /***************************************************************************
   *                                                                          *

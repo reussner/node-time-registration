@@ -23,6 +23,9 @@ block body
             td End date
             td=leave.endDate.toLocaleString('de-DE')
           tr
+            td Type
+            td=leave.leaveType
+          tr
             td Comment
             td=leave.comment
     if leave.rejected == false
@@ -49,6 +52,7 @@ block body
             th Employee
             th Start Date
             th End Date
+            th Type
             th Comment
         tbody
           each entry in leavesInRange
@@ -56,4 +60,5 @@ block body
               td=entry.owner
               td=entry.startDate.toLocaleString('de-DE')
               td=entry.endDate.toLocaleString('de-DE')
+              td=entry.leaveType
               td=entry.comment

@@ -12,12 +12,14 @@ block body
           tr
             th Start date
             th End date
+            th Type
             th Comment
         tbody
           each al in approved
             tr
               td=al.startDate.toLocaleString('de-DE')
               td=al.endDate.toLocaleString('de-DE')
+              td=al.leaveType
               td=al.comment
     .small-12.column
       h2 Pending Leaves
@@ -26,6 +28,7 @@ block body
           tr
             th Start date
             th End date
+            th Type
             th Comment
             th Cancel request
         tbody
@@ -33,6 +36,7 @@ block body
             tr
               td=al.startDate.toLocaleString('de-DE')
               td=al.endDate.toLocaleString('de-DE')
+              td=al.leaveType
               td=al.comment
               td
                 a(href="/cancel-leave-request/" + al.id)
@@ -44,10 +48,12 @@ block body
           tr
             th Start date
             th End date
+            th Type
             th Comment
         tbody
           each al in rejected
             tr
               td=al.startDate.toLocaleString('de-DE')
               td=al.endDate.toLocaleString('de-DE')
+              td=al.leaveType
               td=al.comment

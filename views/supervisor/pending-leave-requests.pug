@@ -1,0 +1,34 @@
+extends ../layout
+
+block body
+  .row
+    .small-12.column
+      h1=title
+  .row
+    .small-12.column
+      table
+        thead
+          tr
+            th Employee
+            th Start
+            th End
+            th Type
+            th Comment
+            th Accept
+            th Reject
+        tbody
+          each leave in pendingLeaves
+            tr
+              td=leave.owner
+              td=leave.startDate.toLocaleString('de-DE')
+              td=leave.endDate.toLocaleString('de-DE')
+              td=leave.leaveType
+              td=leave.comment
+              td
+                a(href="/accept-leave-request/" + leave.id)
+                  button.button.success Accept
+              td
+                a(href="/reject-leave-request/" + leave.id)
+                  button.button.alert Reject
+
+
