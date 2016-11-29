@@ -27,12 +27,16 @@ block body
             th Start date
             th End date
             th Comment
+            th Cancel request
         tbody
           each al in requested
             tr
               td=al.startDate.toLocaleString('de-DE')
               td=al.endDate.toLocaleString('de-DE')
               td=al.comment
+              td
+                a(href="/cancel-leave-request/" + al.id)
+                  button.button.alert Cancel
     .small-12.column
       h2 Rejected Leaves
       table

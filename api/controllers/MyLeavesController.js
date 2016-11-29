@@ -34,6 +34,18 @@ module.exports = {
 
       res.render('user/my-leaves', options);
     })
+  },
+
+  cancelLeaveRequest: function (req, res) {
+    var objectId = req.params.id;
+    Leave.update({
+      _id: objectId
+    },
+      {
+        rejected: true
+      }).exec(function (err, updates) {
+      res.redirect('back');
+    })
   }
 };
 
