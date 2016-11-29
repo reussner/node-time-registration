@@ -1,0 +1,49 @@
+extends ../layout
+
+block body
+  .row
+    .small-12.column
+      h1=title
+  .row
+    .small-12.column
+      h2 Accepted Leaves
+      table
+        thead
+          tr
+            th Start date
+            th End date
+            th Comment
+        tbody
+          each al in approved
+            tr
+              td=al.startDate.toLocaleString('de-DE')
+              td=al.endDate.toLocaleString('de-DE')
+              td=al.comment
+    .small-12.column
+      h2 Pending Leaves
+      table
+        thead
+          tr
+            th Start date
+            th End date
+            th Comment
+        tbody
+          each al in requested
+            tr
+              td=al.startDate.toLocaleString('de-DE')
+              td=al.endDate.toLocaleString('de-DE')
+              td=al.comment
+    .small-12.column
+      h2 Rejected Leaves
+      table
+        thead
+          tr
+            th Start date
+            th End date
+            th Comment
+        tbody
+          each al in rejected
+            tr
+              td=al.startDate.toLocaleString('de-DE')
+              td=al.endDate.toLocaleString('de-DE')
+              td=al.comment

@@ -49,7 +49,9 @@ module.exports.routes = {
   '/send-leave-request': 'LeaveController.sendLeaveRequest',
   '/check-leave-request/:id': 'LeaveController.checkLeaveRequest',
   '/accept-leave-request/:id': 'LeaveController.acceptLeaveRequest',
-  '/reject-leave-request/:id': 'LeaveController.rejectLeaveRequest'
+  '/reject-leave-request/:id': 'LeaveController.rejectLeaveRequest',
+
+  '/my-leaves': 'MyLeavesController.viewLeaves'
 
   /***************************************************************************
   *                                                                          *
