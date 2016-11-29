@@ -118,3 +118,4 @@ nbproject
 .node_history
 .sass-cache
 /config/connections.js
+/api/services/EmailService.js

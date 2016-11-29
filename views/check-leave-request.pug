@@ -1,0 +1,55 @@
+extends layout
+
+block body
+  .row
+    .small-12.column
+      h1="Check leave request"
+  .row
+    .small-12.column
+      p
+        | Do you accept the leave request of employee&nbsp;
+        =leave.owner
+        | ?
+    .small-12.column
+      table
+        tbody
+          tr
+            td Employee
+            td=leave.owner
+          tr
+            td Start date
+            td=leave.startDate.toLocaleString('de-DE')
+          tr
+            td End date
+            td=leave.endDate.toLocaleString('de-DE')
+          tr
+            td Comment
+            td=leave.comment
+    .small-12.column
+      label Comment
+        textarea#leaveComment(name="leaveComment")
+    .small-6.centered.column
+      a(href="/accept-leave-request/" + leave.id)
+        button.button.success Accept
+    .small-6.centered.column
+      a(href="/reject-leave-request/" + leave.id)
+        button.button.alert Reject
+
+  .row
+    .small-12.column
+      h2 Accepted leaves in range
+    .small-12.column
+      table
+        thead
+          tr
+            th Employee
+            th Start Date
+            th End Date
+            th Comment
+        tbody
+          each entry in leavesInRange
+            tr
+              td=entry.owner
+              td=entry.startDate.toLocaleString('de-DE')
+              td=entry.endDate.toLocaleString('de-DE')
+              td=entry.comment

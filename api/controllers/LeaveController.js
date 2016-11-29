@@ -55,16 +55,89 @@ module.exports = {
       startDate: req.body.startDate,
       endDate: req.body.endDate,
       comment: req.body.comment,
-      days: req.body.days
+      days: req.body.days,
+      rejected: false
     };
 
     Leave.create(leave).exec(function (err, records) {
+      var mailOptions = {
+        leaveId: records.id,
+        leaveOwner: leave.owner
+      };
 
+      EmailService.sendLeaveRequest(mailOptions, function (err) {
+        if (err) {
+          return res.serverError(err);
+        }
+        return res.ok();
+      });
+
+      res.redirect('back');
     });
+  },
 
-    res.redirect('back');
+  checkLeaveRequest: function (req, res) {
+    var objectId = req.params.id;
+
+    Leave.find({
+      where: {
+        _id: objectId
+      }
+    }).exec(function (err, results) {
+      var leave = results[0];
+      startDate = new Date(leave.startDate.valueOf()).addDays(-7);
+      endDate = new Date(startDate.valueOf()).addDays(14);
+
+      Leave.find({
+        where: {
+          approved: true,
+          startDate: {
+            ">=": startDate,
+            "<=": endDate
+          }
+        },
+        sort: "startDate ASC"
+      }).exec(function (err, results) {
+        var options = {
+          title: "Check leave request",
+          leave: leave,
+          leavesInRange: results
+        };
+
+        res.render('check-leave-request', options);
+      });
+    });
+  },
+
+  acceptLeaveRequest: function (req, res) {
+    var objectId = req.params.id;
+
+    Leave.update({
+      _id: objectId
+    },
+      {
+        approved: true,
+        rejected: false
+      }).exec(function (err, updated) {
+      res.redirect('/');
+    })
+  },
+
+  rejectLeaveRequest: function (req, res) {
+    var objectId = req.params.id;
+
+    Leave.update({
+      _id: objectId
+    },
+      {
+        approved: false,
+        rejected: true
+      }).exec(function (err, updated) {
+        res.redirect('/');
+    });
   }
 };
+
 
 function getCurrentMonth() {
   var calendarStart = getCalendarStart(new Date());

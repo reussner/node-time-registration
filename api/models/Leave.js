@@ -10,6 +10,9 @@ module.exports = {
   connection: 'localMongoDb',
 
   attributes: {
+    _id: {
+      type: 'ObjectId'
+    },
     leaveType: {
       type: 'string'
     },
@@ -33,6 +36,9 @@ module.exports = {
     },
     department: {
       type: 'string'
+    },
+    rejected: {
+      type: 'boolean'
     }
   }
 };
