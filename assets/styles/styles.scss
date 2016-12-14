@@ -17,15 +17,15 @@ ul.events {
 }
 
 .holiday {
-  background-color: greenyellow;
+  background-color: #008383;
 }
 
 .vacation {
-  background-color: #2199e8;
+  background-color: #C69C48;
 }
 
 .special-leave {
-  background-color: #ec5840;
+  background-color: #DA6411;
 }
 
 .legend {
@@ -36,5 +36,22 @@ ul.events {
 
   p {
     line-height: 1;
+  }
+}
+
+.matrix-table {
+  .matrix-box {
+    border: 1px solid #000000;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    text-align: center;
+  }
+  .matrix-box-weekend {
+    background-color: #808080;
+  }
+
+  .matrix-no-entries {
+    display: none;
   }
 }

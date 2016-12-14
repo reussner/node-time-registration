@@ -77,13 +77,56 @@ block body
             label(for="navision") Navision
           .small-12.column
             input#stable-net-dev(type="checkbox" checked)
-            label(for="stable-net-dev") Stable Net Development
+            label(for="stable-net-dev") StableNet
           .small-12.column
             input#management(type="checkbox" checked)
-            label(for="management") Management
+            label(for="management") Management / Office
           .small-12.column
             input#not-assigned(type="checkbox" checked)
             label(for="not-assigned") Not assigned
+
+  .row
+    .small-9.column
+      .table-scroll
+        table.matrix-table
+          thead
+            tr
+              th.matrix-box
+              each week in calendar
+                each day in week
+                  th.matrix-box=day.date.getDate()
+          tbody
+            each user in employees
+              -var matrixRowClass;
+              if matrixEvents.hasOwnProperty(user["Resource No_"])
+                -matrixRowClass = "matrix-has-entries";
+              else
+                -matrixRowClass = "matrix-no-entries";
+              tr(class=matrixRowClass)
+                td.matrix-box
+                  span.has-tip(data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="1" title=user["First Name"] + " " + user["Last Name"])=user["Resource No_"]
+                each week in calendar
+                  each day in week
+                    if day.date.getDay() == 0 || day.date.getDay() == 6
+                      td.matrix-box.matrix-box-weekend
+                    else if matrixEvents.hasOwnProperty(user["Resource No_"])
+                      if matrixEvents[user["Resource No_"]].hasOwnProperty(day.date)
+                        td.matrix-box.vacation
+                      else
+                        td.matrix-box.matrix-box-free
+                    else
+                      td.matrix-box.matrix-box-free
+    .small-3.column
+      fieldset.small-12.column.fieldset
+        legend Display
+        .small-12.column
+          input#matrix-has-entries(type="checkbox" checked)
+          label(for="matrix-has-entries") Out of the office
+        .small-12.column
+          input#matrix-no-entries(type="checkbox")
+          label(for="matrix-no-entries") At the office
+
+
 
 block scripts
   script(src="/js/forthcoming-events-filter.js")

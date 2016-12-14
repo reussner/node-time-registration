@@ -14,24 +14,33 @@ module.exports = {
     var previousMonth = today.getMonth() - 1;
 
     Q.all([
-      Leave.find({
-        where: {
-          approved: true,
-          startDate: {
-            '>=': getCalendarStart(new Date())
+        Leave.find({
+          where: {
+            approved: true,
+            startDate: {
+              '>=': getCalendarStart(new Date())
+            }
+          },
+          sort: 'startDate ASC'
+        }),
+        Employee.find({
+          where: {
+            "Resource No_": {
+              '!': ''
+            }
           }
-        },
-        sort: 'startDate ASC'
-      })
-    ]).spread(function(leaves) {
+        })
+      ]
+    ).spread(function (leaves, employees) {
 
-      var calendarJson = getLeaveDateJson(leaves);
       var options = {
         title: 'Dashboard',
         calendar: month,
         currentDate: today,
         previousMonth: previousMonth,
-        calendarEvents: calendarJson
+        calendarEvents: getLeaveByDate(leaves),
+        matrixEvents: getLeaveByOwner(leaves),
+        employees: employees
       };
 
       res.render('homepage', options);
@@ -72,7 +81,35 @@ function getCalendarEnd(day) {
   return new Date(calendarStart.valueOf()).addDays(28);
 }
 
-function getLeaveDateJson(leaves) {
+function getLeaveByOwner(leaves) {
+  var ownerJson = {};
+
+  for (var i = 1; i < leaves.length; i++) {
+    var jsonLeave = {};
+    var start = leaves[i].startDate;
+    var end = leaves[i].endDate;
+    while (start <= end) {
+      if (jsonLeave.hasOwnProperty(start)) {
+        jsonLeave[start].push(leaves[i]);
+      } else {
+        jsonLeave[start] = [leaves[i]]
+      }
+
+      start = start.addDays(1);
+    }
+
+    var owner = leaves[i].owner;
+    if (ownerJson.hasOwnProperty(owner)) {
+      ownerJson[owner].push(jsonLeave);
+    } else {
+      ownerJson[owner] = jsonLeave;
+    }
+  }
+
+  return ownerJson;
+}
+
+function getLeaveByDate(leaves) {
   var jsonLeave = {};
   for (var i = 0; i < leaves.length; i++) {
     var start = leaves[i].startDate;

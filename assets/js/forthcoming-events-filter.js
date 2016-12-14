@@ -18,12 +18,12 @@ $(document).ready(function () {
     $('.not-assigned').toggle(this.checked);
   });
 
-  $('#special-leave').click(function () {
-    $('.special-leave').toggle(this.checked);
+  $('#matrix-has-entries').click(function () {
+    $('.matrix-has-entries').toggle(this.checked);
   });
 
-  $('#holiday').click(function () {
-    $('.holiday').toggle(this.checked);
+  $('#matrix-no-entries').click(function () {
+    $('.matrix-no-entries').toggle(this.checked);
   });
 
   $('#illness').click(function () {
