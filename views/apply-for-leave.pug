@@ -12,20 +12,23 @@ block body
     .small-12.medium-6.column
       form(method="post" action="/send-leave-request")
         .row
-          .small-12.column
+          .small-12.medium-6.column
             label Leave type
               select#leaveType(name="leaveType")
                 option(value="vacation") Vacation
                 option(value="special-leave") Special Leave
-          .small-12.medium-5.column
+          .small-12.medium-6.column
+            label Duration
+              select#durationSelection(name="durationSelection")
+                option(value="fullday") Fullday
+                option(value="morning") Morning
+                option(value="afternoon") Afternoon
+          .small-12.medium-6.column
             label Start date
               input#start-date(name="startDate" type="text")
-          .small-12.medium-5.column
+          .small-12.medium-6.column
             label End date
               input#end-date(name="endDate" type="text")
-          .small-12.medium-2.column
-            label Days
-              input(name="days" type="number" value="0")
           .small-12.column
             label Comment
               textarea(name="comment")
